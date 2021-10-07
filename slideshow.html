@@ -1,0 +1,118 @@
+<html>
+<head>
+
+<script language="JavaScript">
+ 
+ var counter = 0;
+ var picList = [  "images/Cars/Demon.jpg", 
+                  "images/Cars/SVJ.jpg",
+				  "images/Cars/Miata.jpg",
+				  "images/Cars/Skyline.jpg",
+				  "images/Cars/RSR.jpg",
+				  "images/Cars/LFA.jpg" ]
+				  
+var clipList = [ "sounds/CarSounds/DemonSound.mp3",
+				 "sounds/CarSounds/SVJSound.mp3",
+				 "sounds/CarSounds/MiataSound.mp3",
+				 "sounds/CarSounds/R32Sound.mp3",
+				 "sounds/CarSounds/RSRSound.mp3",
+				 "sounds/CarSounds/LFASound.mp3" ]
+				 
+
+ 
+ var startTimer = false ;
+ 
+ var timer
+ function next()
+{
+
+	document.getElementById("display").src = picList[counter]
+	
+	document.getElementById("player").src = clipList[counter];
+	document.getElementById("player").play()
+	increment();
+}
+
+ function run()
+{
+	/*next();
+	
+	var cliplength = clipList[counter].length
+	//alert(cliplength)
+	
+	timer = setTimeout ("run()", cliplength*1000)*/
+	
+
+	if (startTimer == false)
+		{
+		startTimer = true
+		document.getElementById("runButton").value="pause"
+		}
+	else 
+		{
+		(startTimer = false)
+		document.getElementById("runButton").value="Run Slideshow"
+		}
+		
+		autoDisplay()
+
+}
+function increment()
+{
+	if (counter == picList.length-1)
+	{
+		counter = 0 ;
+	}
+	else
+	{
+		counter= counter+1
+	}
+}
+
+function autoDisplay()
+{
+
+		if (startTimer == true)
+		
+		{
+		document.getElementById("display").src= picList[counter];
+		document.getElementById("player").src = clipList[counter];
+		document.getElementById("player").play()
+		increment();
+		timer = setTimeout ("autoDisplay()", 10000);
+		}
+		
+		else
+		{
+		clearTimeout(timer)
+		}
+		
+
+}
+</script>
+</head>
+<body background = "Images/Backgrounds/bkgnd4.gif">
+<font color="white" size="4">
+<center>
+<h1> Best Sounding Cars </h1>
+
+
+</font>
+<input type="button" value="Next Picture" onclick="next()"/>
+
+<input type="button" value="Run Slideshow" onclick="run()" id = "runButton"/>
+
+<br/> <br/>
+
+<img src="images/Cars/Opening.jpg" id="display"/> 
+
+<br/>
+
+<mark>
+<a href="index.html"> click here to return to my home page <a/> <br/>
+</mark>
+
+<audio id= "player"></audio>
+
+</body>
+</html>
