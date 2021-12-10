@@ -1,0 +1,120 @@
+<html>
+<head>
+
+<script language="JavaScript">
+ 
+ var counter = 0;
+ var picList = [  "images/Cars/Demon.jpg", 
+                  "images/Cars/SVJ.jpg",
+				  "images/Cars/Miata.jpg",
+				  "images/Cars/Skyline.jpg",
+				  "images/Cars/RSR.jpg",
+				  "images/Cars/LFA.jpg" ]
+				  
+var clipList = [ "sounds/CarSounds/DemonSound.mp3",
+				 "sounds/CarSounds/SVJSound.mp3",
+				 "sounds/CarSounds/MiataSound.mp3",
+				 "sounds/CarSounds/R32Sound.mp3",
+				 "sounds/CarSounds/RSRSound.mp3",
+				 "sounds/CarSounds/LFASound.mp3" ]
+				 
+
+ 
+ var startTimer = false ;
+ var response
+ var timer
+function start()
+	{	
+		response = confirm("do you want the slides to play")		
+		if (response == true)
+		{
+			code(true)
+			startTimer = true
+		}
+		else if (response == false)
+		{
+		code(false)
+		startTimer = false
+		}
+	}
+
+function code(runornext)
+{
+	if( runornext == true )
+		{
+		
+		run()
+		}
+	else if( runornext == false )
+		{
+			next()
+		}
+}
+
+
+ function next()
+{
+
+	document.getElementById("display").src = picList[counter]
+	
+	document.getElementById("player").src = clipList[counter];
+	document.getElementById("player").play()
+	increment();
+}
+
+ function run()
+{	
+		autoDisplay()
+}
+
+function increment()
+{
+	if (counter == picList.length-1)
+	{
+		counter = 0 ;
+	}
+	else
+	{
+		counter= counter+1
+	}
+}
+
+function autoDisplay()
+{
+
+		if (startTimer == true)
+		
+		{
+		document.getElementById("display").src= picList[counter];
+		document.getElementById("player").src = clipList[counter];
+		document.getElementById("player").play()
+		increment();
+		timer = setTimeout ("autoDisplay()", 10000);
+		}
+		
+		else
+		{
+		clearTimeout(timer)
+		}
+		
+
+}
+</script>
+</head>
+<body background = "Images/Backgrounds/bkgnd4.gif">
+<font color="white" size="4">
+<center>
+<h1> Best Sounding Cars </h1>
+
+
+</font>
+<input type="button" value="Start" onclick="start()"/>
+
+<br/> <br/>
+
+<img src="images/Cars/Opening.jpg" id="display"/> 
+
+<audio id= "player"></audio>
+
+</body>
+</html>
