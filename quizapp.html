@@ -1,0 +1,186 @@
+<html>
+<head>
+<script language = JavaScript>
+var counter = 0;
+var score = 0;
+
+var terms = [ "Lamborghnini Aventador",
+"Nissan skyline r32",
+"Nisaan silvia s15",
+"Lexus LFA",
+"BMW e39 M5"
+]
+
+var defs = ["V12",
+"I6",
+"I4",
+"V10",
+"V8"
+]
+
+var asked = [false,
+			false,
+			false,
+			false,
+			false
+				]
+
+
+var qAsked = 0
+
+
+
+function nextQ()
+{
+//alert(getUnusedIndex())
+
+
+	var checked = document.getElementById("terms").checked;
+	document.getElementById("image").style.visibility = "hidden"
+	document.getElementById("image2").style.visibility = "hidden";
+	document.getElementById("answer").value = "";
+	displayClue(checked);
+}
+function nextA()
+{
+
+var checked = document.getElementById("terms").checked;
+
+checkAnswer(checked) ;
+
+}
+
+function displayClue(wordsOrDefs)
+{
+qAsked = getUnusedIndex()
+	if(wordsOrDefs == true)
+	{
+
+		document.getElementById("clue").value = terms[qAsked];
+
+	}
+	else 
+	{
+	
+	document.getElementById("clue").value = defs[qAsked]
+	
+	
+	}
+
+}
+
+
+
+function getUnusedIndex()
+{
+	var rand = Math.random()*terms.length
+	rand = parseInt(rand)
+	
+	while(asked[rand] == true)
+	{
+		rand = math.random()*terms.length
+		rand = parseInt(rand)
+	}
+	
+	asked[rand] = true
+	
+	return rand;
+}
+
+function checkAnswer(defsAreAnswers)
+{
+
+var answers
+	if (defsAreAnswers == true)
+	{
+		answers = defs
+	}
+	else
+	{
+		alert(defsAreAnswers)
+		answers = terms
+
+	
+	}
+	var daAnswer = document.getElementById("answer").value;
+	
+	if (daAnswer == answers[qAsked])
+	{
+		score+=5
+		alert ("Correct. your score is "+ score)
+		document.getElementById("image").src = ("images/sucess.jfif")
+		document.getElementById("image").style.visibility="visible"
+	}
+	else
+	{
+		alert("Incorrect. Your score is still "+ score)
+		document.getElementById("image2").src = ("images/fail.jfif")
+		document.getElementById("image2").style.visibility="visible"
+	}
+	var winWidth= window.innerWidth/2
+	document.getElementById("image").style.left
+	document.getElementById("image").style.visibility="visible"
+	
+	if (counter < terms.length-1)
+	{
+		counter ++
+	}
+	else
+	{
+	counter=0
+	endQuiz()
+	}
+}
+ 
+
+function endQuiz()
+{
+	alert("End of quiz! Youre score was "+ score +" out of 25")
+	
+	for(i=0; i<asked.length; i++)
+	{
+		asked[i] = false;
+		
+
+	}
+
+
+}
+
+
+</script>
+</head>
+<body bgcolor="red">
+<center>
+<h1>Car Engine Quiz</h1>
+
+<input type="radio" id="terms" name="qType" onchange="restart()" checked>
+  <label for="terms">Terms</label>
+<input type="radio" id="defs" name="qType" on>
+  <label for="defs">Definitions</label>
+
+<input type="button" value="Next" onclick="nextQ()"/>
+
+<br/><br/>
+<input type = "text" id="clue" readonly size=40>
+
+<br/><br/>
+<input type = "text" id="answer" onfocusout="nextA()" size=40>
+<br/>
+<input type="button" value="Check Answer" />
+</center>
+
+<div id="image" style="position:absolute;top:250;left:500;visibility:hidden">
+
+<img id="winLose" src="images/sucess.jfif">
+
+</div>
+
+<div id="image2" style="position:absolute;top:250;left:500;visibility:hidden">
+
+<img id="winLose" src="images/fail.jfif">
+
+</div>
+
+</body>
+</html>
